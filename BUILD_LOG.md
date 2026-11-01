@@ -47,7 +47,6 @@ Statuses below record current implementation progress. Research and mockups pred
 | T12 | M05       | Run relevant type/lint/build checks and inspect public/admin flows, mobile, contrast, keyboard, throttling, and cross-site request protection. Record results and remaining limits. | in progress |
 | T13 | M05       | Prepare deployment once hosting is chosen; verify production persistence, environment configuration, and final public content before any publication.                               | planned     |
 | T14 | M04 | Build the user-approved technical motion, eased desktop scrolling, scroll reveals, and contextual crosshair cursor; verify public routes and reduced-motion/touch/admin fallbacks. | done |
-
 | T15 | M04 | Refine the approach display palette and add a smoothly compacting sticky public header; desktop/mobile, anchors, keyboard and motion-off checks passed. | done |
 | T16 | M02 | Add resume-backed professional experience and compact education; verified against the supplied resume and inspected at desktop/mobile widths. | done |
 | T17 | M02 | Redesign capabilities creatively and cover the full verified skill set in a later user-approved pass. | planned |
