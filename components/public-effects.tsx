@@ -43,7 +43,7 @@ export function PublicEffects() {
         ),
       );
     }
-    enter(scope.querySelector(".site-header"), 0, -12, 650);
+    enter(scope.querySelector(".header-surface"), 0, -12, 650);
     enter(scope.querySelector(".bench-frame"), 50, 28, 1000);
     const introItems = [
       ".hero-person .eyebrow",
@@ -96,7 +96,7 @@ export function PublicEffects() {
     );
     scope
       .querySelectorAll<HTMLElement>(
-        ".about-section .section-label, .about-grid > *, .capabilities article, .contact-section .section-label, .contact-section h2, .contact-link, .project-row, .story-sections > section, .project-image",
+        ".about-section .section-label, .about-grid > *, .capabilities article, .experience-section .section-label, .experience-intro, .experience-record, .education-strip, .contact-section .section-label, .contact-section h2, .contact-link, .project-row, .story-sections > section, .project-image",
       )
       .forEach((element, index) => {
         revealNodes.push(element);
@@ -159,7 +159,7 @@ export function PublicEffects() {
         lerp: 0.085,
         smoothWheel: true,
         syncTouch: false,
-        anchors: { offset: -25 },
+        anchors: true,
         stopInertiaOnNavigate: true,
       });
     }

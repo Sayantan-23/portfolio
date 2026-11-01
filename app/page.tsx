@@ -113,9 +113,9 @@ export default function Home() {
             </h2>
             <div className="about-copy">
               <p>
-                I’m Sayantan, a software engineer interested in the whole
-                journey: from the first interaction to the logic and data behind
-                it.
+                I’m Sayantan, a software engineer based in Hooghly, West Bengal,
+                working across interfaces, application logic, and the systems
+                that bring them together.
               </p>
               <p>
                 I like working through a problem, understanding the tradeoffs,
@@ -131,6 +131,18 @@ export default function Home() {
               >
                 Find me on GitHub <Arrow />
               </a>
+              <div className="about-details">
+                <span className="mono micro">BASED IN</span>
+                <span>{profile.location}</span>
+                <a
+                  className="text-link"
+                  href={profile.linkedin}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  LinkedIn <Arrow />
+                </a>
+              </div>
             </div>
           </div>
           <div className="capabilities">
@@ -163,8 +175,79 @@ export default function Home() {
             ))}
           </div>
         </section>
+        <section
+          className="experience-section"
+          id="experience"
+          aria-labelledby="experience-title"
+        >
+          <SectionLabel number="02">EXPERIENCE / THE PRACTICE</SectionLabel>
+          <div className="experience-intro">
+            <h2 id="experience-title">
+              Built in practice.
+              <br />
+              <em>Refined along the way.</em>
+            </h2>
+            <p>
+              From writing the first interface to supporting a release —
+              experience across the life of an application.
+            </p>
+          </div>
+          <article className="experience-record">
+            <div className="experience-period">
+              <span className="mono micro">01 / PROFESSIONAL EXPERIENCE</span>
+              <p>
+                <time dateTime={profile.experience.start}>
+                  {profile.experience.startLabel}
+                </time>
+                <span aria-hidden="true"> — </span>
+                {profile.experience.endLabel}
+              </p>
+            </div>
+            <div className="experience-content">
+              <h3>{profile.experience.role}</h3>
+              <p className="experience-employer">
+                {profile.experience.employer}
+              </p>
+              <p className="experience-summary">{profile.experience.summary}</p>
+              <dl className="experience-responsibilities">
+                {profile.experience.responsibilities.map(
+                  ([label, detail], index) => (
+                    <div key={label}>
+                      <dt>
+                        <span className="mono micro">0{index + 1}</span>
+                        {label}
+                      </dt>
+                      <dd>{detail}</dd>
+                    </div>
+                  ),
+                )}
+              </dl>
+            </div>
+          </article>
+          <div
+            className="education-strip"
+            role="group"
+            aria-labelledby="education-title"
+          >
+            <h3 id="education-title">
+              <span className="mono micro">THE FOUNDATION</span>Education
+            </h3>
+            {profile.education.map((education) => (
+              <div key={education.degree}>
+                <span className="education-years mono micro">
+                  {education.years}
+                </span>
+                <h4>{education.degree}</h4>
+                <p>
+                  {education.institution}
+                  <span>{education.result}</span>
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
         <section className="contact-section" id="contact">
-          <SectionLabel number="02">KEEP THE CONVERSATION GOING</SectionLabel>
+          <SectionLabel number="03">KEEP THE CONVERSATION GOING</SectionLabel>
           <div>
             <h2>
               Have something

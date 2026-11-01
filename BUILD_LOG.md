@@ -6,8 +6,8 @@ Lightweight tracking for Sayantan’s Signal Bench portfolio. Created 1 November
 
 - Phase: first local implementation built; content review and release work remain.
 - Application: Next.js 16.4.3 / React 19.3.1 / TypeScript 6.0.3, developed on Node 24.19.0. Historical HTML studies are preserved.
-- Selected direction: Signal Bench. The approved richer motion layer is implemented; the design specification is in [the portfolio plan](PORTFOLIO_PLAN.md).
-- Next work: review the implementation with Sayantan, finalise public content (T05), finish broader accessibility/device checks (T12), then select hosting for T13.
+- Selected direction: Signal Bench. The richer motion layer, floating navigation, and recruiter-information refinement are implemented; the design specification is in [the portfolio plan](PORTFOLIO_PLAN.md).
+- Next work: review the updated display, floating navigation and resume-backed background; redesign skills separately (T17), finalise public copy (T05), finish broader device/accessibility checks (T12), then choose hosting (T13).
 - PostgreSQL is selected. Hosting and image hosting remain undecided; local development is authorised.
 
 ## Tracking rules
@@ -23,7 +23,7 @@ Update this file for meaningful task progress, decisions, and session handoff. A
 | M01 | Foundation | done | T01 |
 | M02 | Public portfolio                   | in progress | T02–T05 |
 | M03 | Project storage and admin | done | T06–T09 |
-| M04 | Motion and polish | done | T10–T11, T14 |
+| M04 | Motion and polish | done | T10–T11, T14–T15 |
 | M05 | Validation and release preparation | in progress | T12–T13 |
 
 ## Tasks
@@ -46,8 +46,11 @@ Statuses below record current implementation progress. Research and mockups pred
 | T11 | M04 | Add metadata, social preview, favicon, and real image/font optimisation; verify unpublished entries stay out of metadata/sitemap. | done |
 | T12 | M05       | Run relevant type/lint/build checks and inspect public/admin flows, mobile, contrast, keyboard, throttling, and cross-site request protection. Record results and remaining limits. | in progress |
 | T13 | M05       | Prepare deployment once hosting is chosen; verify production persistence, environment configuration, and final public content before any publication.                               | planned     |
-
 | T14 | M04 | Build the user-approved technical motion, eased desktop scrolling, scroll reveals, and contextual crosshair cursor; verify public routes and reduced-motion/touch/admin fallbacks. | done |
+
+| T15 | M04 | Refine the approach display palette and add a smoothly compacting sticky public header; desktop/mobile, anchors, keyboard and motion-off checks passed. | done |
+| T16 | M02 | Add resume-backed professional experience and compact education; verified against the supplied resume and inspected at desktop/mobile widths. | done |
+| T17 | M02 | Redesign capabilities creatively and cover the full verified skill set in a later user-approved pass. | planned |
 
 ## Decision record
 
@@ -127,3 +130,21 @@ The user found the initial site too static, then approved snappy technical inter
 - Temporary visual QA HTML was removed. The built portfolio is running at http://127.0.0.1:3000. No hosting, database content changes, or publication were part of this visual pass; integration fixtures were cleaned up.
 
 The visual layer is ready for user review. Final copy, resume, project visuals, broader device/accessibility/performance review, and hosting remain open as recorded above.
+
+## Recruiter information and navigation pass — 1 November 2026
+
+- Before any edits, committed and pushed the existing application to `origin/master`: `60d9193`. Local credentials were checked against staged content and excluded.
+- Current scope: a richer display colour, a compact floating sticky header, professional experience, and subordinate education. The user explicitly deferred the skills redesign; its existing content and styling stay unchanged.
+- Source: supplied resume. Employment history is now requested; the earlier exclusion of professional project case studies remains in force. Avoid publishing its phone number, unsupported current-status claims, project names, or production metrics.
+- Plan: reuse the public shell and motion layer, adjust anchor offsets for the header, add an editorial experience ledger and a small education strip, then run code checks and inspect scroll/navigation at desktop and mobile widths.
+
+### Completion and handoff — 2 November 2026
+
+- T15/T16 complete. The display uses smoked indigo, a restrained lavender glow and the existing mint signal. Navigation stays sticky and contracts into a light floating surface without changing document layout or hiding links. The functional sticky state works independently of the motion preference.
+- Added Experience navigation, a professional role ledger with general responsibilities, subordinate education, location and LinkedIn. Facts came from the supplied resume; no professional project names, production metrics, phone number or downloadable private resume were added. Personal background stays in `lib/profile.ts`.
+- Native section anchors support repeated clicks, keyboard activation, and cross-page navigation from Work. Lenis now uses the shared CSS scroll padding rather than adding a second offset. The header entrance targets its inner surface so its sticky positioning remains independent.
+- Browser checks passed: desktop 1280px and mobile 390px showed no document overflow and all navigation links fit. Floating desktop surface settled at 980px wide, 12px from the top; mobile at 8px. Experience anchors settled around 110px, clear of navigation. Direct-page motion-off navigation remained sticky with 0s transition; repeating the same anchor after returning to the top worked. Tab showed a 3px focus outline on Experience and Enter opened its section. Work-to-Experience navigation passed.
+- Education was inspected on mobile; the real desktop experience and floating header are captured in ignored `previews/recruiter-update.png`. Temporary layout-check HTML was removed. Per-site motion was restored to on.
+- Typecheck, ESLint, seven unit tests, final production build, and the PostgreSQL/HTTP integration suite passed. The integration fixture cleanup preserved existing project data. An explicit comparison confirmed the capabilities markup and CSS are unchanged from the baseline commit.
+- No dependency, database schema, hosted service or deployment change. Production preview remains at http://127.0.0.1:3000. Broader physical-device/OS reduced-motion/accessibility checks and final content approval remain open. T17 is planned only, at the user’s request.
+- Git: baseline snapshot was pushed to `origin/master` before editing. This refinement is a separate commit on the same branch.

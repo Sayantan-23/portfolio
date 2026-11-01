@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { profile } from "@/lib/profile";
 import { MotionPreference } from "./motion-preference";
+import { StickyHeader } from "./sticky-header";
 export function Arrow() {
   return (
     <span className="arrow" aria-hidden="true">
@@ -10,7 +11,7 @@ export function Arrow() {
 }
 export function Header({ active }: { active?: "work" }) {
   return (
-    <header className="site-header">
+    <StickyHeader>
       <Link href="/" className="brand" aria-label="Sayantan Ghosh, home">
         <span className="brand-symbol" aria-hidden="true">
           ↳_
@@ -28,12 +29,15 @@ export function Header({ active }: { active?: "work" }) {
         >
           Work
         </Link>
-        <Link href="/#about">About</Link>
-        <Link href="/#contact">
+        {/* eslint-disable @next/next/no-html-link-for-pages -- Native hash anchors preserve repeated section navigation with motion off. */}
+        <a href="/#about">About</a>
+        <a href="/#experience">Experience</a>
+        <a href="/#contact">
           Contact <Arrow />
-        </Link>
+        </a>
+        {/* eslint-enable @next/next/no-html-link-for-pages */}
       </nav>
-    </header>
+    </StickyHeader>
   );
 }
 export function Footer() {

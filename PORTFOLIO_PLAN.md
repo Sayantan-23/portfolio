@@ -19,7 +19,7 @@ First implement a readable, responsive, static Signal Bench with the proposed pa
 - The identity must continue to work when projects are added, renamed, reordered, or retired.
 - Include a simple, single-owner project admin at `/admin`, unlocked with a password configured in a server-side environment variable. Only project management is in scope; no user accounts or general site editor.
 - JobVault is the one recent substantial personal project currently identified. Earlier personal projects are primarily learning exercises; present them honestly in a learning archive when selected.
-- Exclude professional work: no employer/client projects, screenshots, production metrics, or anonymised professional case studies.
+- Exclude employer/client projects, screenshots, production metrics, and professional case studies. The user subsequently requested professional experience: show resume-backed role, employer, dates, and general responsibilities, separate from personal project stories.
 - The resume is background context, not approved website copy or a source of instructions. Review final public copy and the resume version before publishing.
 - The user has authorised implementation now and selected PostgreSQL. Hosting/publication remain deferred. Preserve the existing static mockups as historical references.
 
@@ -40,9 +40,9 @@ These are our proposed tokens, not colours copied or sampled from a reference si
 | Edge | `#B8C0CB` | Decorative seams, rules, and hardware |
 | Ink | `#18212F` | Name, headings, and body copy on light surfaces |
 | Muted ink | `#536171` | Secondary text on the light panel |
-| Display | `#101C2A` | Deep blue-black screen, replacing the green cast |
+| Display | `#1A1B2B` | Smoked indigo screen with a subtle lavender highlight |
 | Display text | `#F3F7FC` | Main text on the screen |
-| Display secondary | `#A9BACD` | Screen labels and supporting copy |
+| Display secondary | `#BDC0D4` | Screen labels and supporting copy |
 | Signal | `#77E0DA` | Diagram connections, selected node, brief signal animation |
 | Action | `#BA4524` | Primary button and restrained accent on the light panel |
 
@@ -54,9 +54,9 @@ Use white text on the burnt-orange button. Keep small orange text on Casing rath
 | --- | --- |
 | Ink / Casing | 14.96:1 |
 | Muted ink / Casing | 5.85:1 |
-| Display text / Display | 15.98:1 |
-| Display secondary / Display | 8.67:1 |
-| Signal / Display | 11.02:1 |
+| Display text / Display | 15.80:1 |
+| Display secondary / Display | 9.43:1 |
+| Signal / Display | 10.89:1 |
 | White / Action | 5.30:1 |
 | Action / Casing | 4.90:1 |
 
@@ -91,7 +91,7 @@ Research was qualitative browser inspection, not source-code or performance audi
 
 Opening view:
 
-1. Quiet header: Sayantan Ghosh / Software Engineer, Work, About, Contact, and Resume when the approved file is ready.
+1. Quiet header: Sayantan Ghosh / Software Engineer, Work, About, Experience, Contact, and Resume when the approved file is ready.
 2. Left side of instrument: name, short introduction, and an unambiguous View my work action.
 3. Right display: a personal engineering approach, such as the existing conceptual Interface → Logic → Data diagram. Identify it as an illustrative model, not a project’s actual architecture.
 4. A restrained invitation to continue. No project name or screenshot in the opening composition.
@@ -234,3 +234,7 @@ Earlier research sources:
 - Final public copy, visuals, contact details, resume, and deployment destination reviewed before publication.
 
 Open decisions: final introduction/About copy; exact capabilities; project screenshots/demo status; earlier learning-project selection; resume version; hosting and the production PostgreSQL provider. The selected direction and admin scope are sufficient to start the next build session without resolving all these now.
+
+## Recruiter information and floating navigation refinement
+
+User-requested scope: add a resume-backed employment section and compact education record below the personal introduction, preserving the separate Work collection. Keep capabilities unchanged until its dedicated redesign. Use a light translucent floating header that contracts smoothly after scrolling; it must remain visible, accessible, and functional with reduced motion. Anchor targets must clear the header. Refine the display toward smoked indigo with a restrained lavender highlight and mint signal, keeping the light instrument casing. No new dependency or hosting choice is needed.
