@@ -242,3 +242,7 @@ User-requested scope: add a resume-backed employment section and compact educati
 ## Skills and local quality refinement — 2 November 2026
 
 The skills workbench is implemented with a small client component and one resume-backed data source in `lib/skills.ts`. Use six connected circuits, a focused explanation, and a full visible tool list; do not add self-rated proficiency percentages. Mobile selection explains the area in its row so visitors do not need to scroll back to the diagram. The opening remains candidate-first. JobVault story paragraphs were checked against local implementation and decision records; images, demo availability and runtime feature verification remain separate from source inspection.
+
+## Individual tool details and cursor refinement — 2 November 2026
+
+Each tool has a local icon and a hover/focus glow. Its accessible, dismissible detail popover shows verified practical context rather than an invented proficiency score. React Native brings the total to 29 tools. Group-selection buttons and individual tool buttons remain separate. Popovers must be readable with reduced motion, keyboard focus and click/tap, stay hoverable, and fit small screens. The cursor frame tracks the real pointer; the centre dot trails gently. A white duplicate clipped to primary-button geometry preserves the base colour outside the overlap. Keep custom cursor and scroll-easing effects disabled for touch/coarse pointers, reduced motion and admin pages; skill details remain available through ordinary focus and click/tap.

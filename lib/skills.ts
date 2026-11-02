@@ -68,6 +68,6 @@ export const skillAreas = [
     description:
       "Working with mobile applications and using agentic development tools to support implementation and debugging.",
     connection: "Explore → implement → iterate",
-    tools: ["Flutter", "Capacitor", "Claude Code", "Codex"],
+    tools: ["React Native", "Flutter", "Capacitor", "Claude Code", "Codex"],
   },
 ];

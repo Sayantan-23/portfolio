@@ -3,12 +3,18 @@ import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Lenis from "lenis";
 import { useMotionMode } from "./motion-preference";
+import {
+  cursorClipRect,
+  easeDot,
+  type Point,
+} from "@/lib/interaction-geometry";
 
 export function PublicEffects() {
   const pathname = usePathname();
   const mode = useMotionMode();
   const cursor = useRef<HTMLDivElement>(null);
   const caption = useRef<HTMLSpanElement>(null);
+  const contrastClip = useRef<SVGClipPathElement>(null);
   useEffect(() => {
     if (pathname.startsWith("/admin")) return;
     const root = document.documentElement;
@@ -22,9 +28,20 @@ export function PublicEffects() {
     const animations: Animation[] = [];
     const revealNodes: HTMLElement[] = [];
     let scrollFrame = 0;
+    let dotFrame = 0;
+    let dotTime = 0;
+    let dotPosition: Point | null = null;
     let lenis: Lenis | undefined;
     let pointerPosition: { x: number; y: number } | null = null;
     const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)");
+    const filledButtons = [
+      ...scope.querySelectorAll<HTMLElement>(".button.primary"),
+    ];
+    const clipRects = filledButtons.map(() =>
+      document.createElementNS("http://www.w3.org/2000/svg", "rect"),
+    );
+    const clipElement = contrastClip.current;
+    clipElement?.replaceChildren(...clipRects);
     const ease = "cubic-bezier(.22,1,.36,1)";
     function enter(
       element: Element | null,
@@ -139,6 +156,10 @@ export function PublicEffects() {
     updateScroll();
     function hideCursor() {
       pointerPosition = null;
+      dotPosition = null;
+      dotTime = 0;
+      cancelAnimationFrame(dotFrame);
+      dotFrame = 0;
       root.classList.remove("precision-cursor-active");
       cursor.current?.classList.remove(
         "is-visible",
@@ -164,6 +185,36 @@ export function PublicEffects() {
     finePointer.addEventListener("change", configureDesktop, {
       signal: controller.signal,
     });
+    function drawDot() {
+      if (!pointerPosition || !dotPosition) return;
+      cursor.current?.style.setProperty(
+        "--dot-x",
+        `${dotPosition.x - pointerPosition.x}px`,
+      );
+      cursor.current?.style.setProperty(
+        "--dot-y",
+        `${dotPosition.y - pointerPosition.y}px`,
+      );
+    }
+    function animateDot(time: number) {
+      dotFrame = 0;
+      if (!pointerPosition || !dotPosition) return;
+      dotPosition = easeDot(
+        dotPosition,
+        pointerPosition,
+        dotTime ? time - dotTime : 16.67,
+      );
+      dotTime = time;
+      const remaining = Math.hypot(
+        dotPosition.x - pointerPosition.x,
+        dotPosition.y - pointerPosition.y,
+      );
+      if (remaining < 0.1) {
+        dotPosition = { ...pointerPosition };
+        dotTime = 0;
+      } else dotFrame = requestAnimationFrame(animateDot);
+      drawDot();
+    }
     function updateCursor(target: Element | null, x: number, y: number) {
       const node = cursor.current;
       if (
@@ -192,11 +243,23 @@ export function PublicEffects() {
                       ? "OPEN"
                       : "");
       node.style.transform = `translate3d(${x}px,${y}px,0)`;
+      if (!dotPosition) dotPosition = { x, y };
+      drawDot();
+      if (!dotFrame) dotFrame = requestAnimationFrame(animateDot);
+      filledButtons.forEach((button, index) => {
+        const rect = cursorClipRect(button.getBoundingClientRect(), { x, y });
+        for (const [key, value] of Object.entries(rect))
+          clipRects[index].setAttribute(key, String(value));
+        clipRects[index].setAttribute(
+          "rx",
+          getComputedStyle(button).borderTopLeftRadius,
+        );
+      });
       node.classList.add("is-visible");
       node.classList.toggle("is-interactive", !!interactive);
       node.classList.toggle(
         "is-over-display",
-        !!target?.closest(".bench-screen, .skills-instrument"),
+        !!target?.closest(".bench-screen, .skills-instrument, .skill-popover"),
       );
       node.classList.toggle("on-right", x > window.innerWidth - 160);
       if (caption.current) caption.current.textContent = label;
@@ -251,6 +314,7 @@ export function PublicEffects() {
       root.classList.remove("public-motion", "precision-cursor-active");
       root.style.removeProperty("--page-progress");
       root.style.removeProperty("--screen-shift");
+      clipElement?.replaceChildren();
       delete root.dataset.motion;
       hideCursor();
     };
@@ -260,10 +324,23 @@ export function PublicEffects() {
     <>
       <div className="scroll-progress" aria-hidden="true" />
       <div ref={cursor} className="precision-cursor" aria-hidden="true">
-        <span className="cursor-center" />
-        <svg viewBox="0 0 40 40">
-          <path d="M4 14V4H14M26 4H36V14M36 26V36H26M14 36H4V26" />
+        <svg className="cursor-clip-definitions" width="0" height="0">
+          <defs>
+            <clipPath
+              id="cursor-button-clip"
+              clipPathUnits="userSpaceOnUse"
+              ref={contrastClip}
+            />
+          </defs>
         </svg>
+        {["cursor-mark", "cursor-mark cursor-contrast"].map((className) => (
+          <div className={className} key={className}>
+            <span className="cursor-center" />
+            <svg viewBox="0 0 40 40">
+              <path d="M4 14V4H14M26 4H36V14M36 26V36H26M14 36H4V26" />
+            </svg>
+          </div>
+        ))}
         <span className="cursor-caption" ref={caption} />
       </div>
     </>

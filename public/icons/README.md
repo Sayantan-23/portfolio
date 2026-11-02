@@ -1,0 +1,1 @@
+Brand glyphs: Simple Icons 16.36.0, https://github.com/simple-icons/simple-icons (CC0-1.0; licence included). Copied from the official npm archive, not loaded from a CDN. React Native reuses the React glyph. cloud, terminal, api, network and pipeline are locally drawn semantic icons, not brand logos.

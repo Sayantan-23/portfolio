@@ -23,7 +23,7 @@ Update this file for meaningful task progress, decisions, and session handoff. A
 | M01 | Foundation | done | T01 |
 | M02 | Public portfolio                   | in progress | T02–T05, T16–T17 |
 | M03 | Project storage and admin | done | T06–T09 |
-| M04 | Motion and polish | done | T10–T11, T14–T15 |
+| M04 | Motion and polish | done | T10–T11, T14–T15, T18 |
 | M05 | Validation and release preparation | in progress | T12–T13 |
 
 ## Tasks
@@ -50,6 +50,7 @@ Statuses below record current implementation progress. Research and mockups pred
 | T15 | M04 | Refine the approach display palette and add a smoothly compacting sticky public header; desktop/mobile, anchors, keyboard and motion-off checks passed. | done |
 | T16 | M02 | Add resume-backed professional experience and compact education; verified against the supplied resume and inspected at desktop/mobile widths. | done |
 | T17 | M02 | Build the six-circuit skills workbench with all 28 resume-backed tools; six-selection assertions, mobile inline feedback and keyboard/motion-off checks passed. | done |
+| T18 | M04 | Add individual tool icons/popovers, React Native, clipped white cursor contrast and a lightly trailing dot; unit, browser, accessibility and integration checks passed. | done |
 
 ## Decision record
 
@@ -167,3 +168,21 @@ The visual layer is ready for user review. Final copy, resume, project visuals, 
 - Typecheck, lint, seven unit tests, production build and PostgreSQL/HTTP admin integration passed. No runtime dependency, schema or hosting changes. Temporary accessibility HTML/axe files are removed before handoff.
 
 Manual review order: skills on desktop/mobile; personal facts and copy; JobVault story wording. Remaining choices: approved public resume, real project screenshots/demo, older learning entries, application/PostgreSQL hosting. T03/T05/T12 stay in progress for the explicit limits above; T13 remains planned.
+
+## Skill details and cursor refinement — 2 November 2026
+
+- User references: yashahire.info skill chips/popovers and aahanabobade.com cursor feel. Preserve the workbench and add verified individual tool context; do not copy another candidate’s expertise claims.
+- Reach: skills data and markup, local icon assets, popover positioning/dismissal, cursor rendering/CSS/event cleanup, keyboard/touch/reduced-motion fallbacks, and focused geometry/browser checks. React Native is supported by JobVault’s source and is explicitly requested. No database, admin, hosting or dependency upgrade is needed.
+
+### T18 completion — 2 November 2026
+
+- Inspected Yash Ahire’s skills chip/detail bubble and Aahana Bobade’s layered cursor visually. Applied the interaction ideas to Signal Bench; did not reuse their personal copy or infer their timings.
+- All 29 tools now have a local icon, a glow on hover/focus, and a detail popover with practical context. React Native was added based on the user’s instruction and JobVault’s React Native/Expo source. Descriptions distinguish professional practice, personal-project use, and toolkit context; no unsupported Expert labels, tenure or scores were invented. Update individual descriptions in `lib/skill-details.ts`.
+- Refactored group selection and tool buttons into siblings so buttons are never nested. Opening a tool does not change the selected circuit or shift the page. Popovers support hover, focus and click/tap activation, remain hoverable across the gap, follow their anchor during scrolling, clamp/flip to the viewport, and close on Escape or outside click. Event handlers, close timers and positioning frames are cleaned up.
+- Brand glyphs are copied from Simple Icons 16.36.0 (CC0; source/licence in `public/icons`). Generic API/network/cloud/pipeline/terminal symbols are locally drawn. No CDN requests or npm dependency were added; React Native shares the React glyph.
+- Cursor: the crosshair frame keeps the actual pointer position. Only its centre dot follows with a 55ms exponential time constant. The RAF stops at rest and is cancelled on hide, route/motion changes and unmount. A duplicate white mark is clipped to actual primary-button rectangles; only overlapping segments change colour, including when the pointer is just outside a button. The tooltip’s dark surface gets the existing mint cursor treatment.
+- Browser proof: at a primary button’s left edge, the clip began 44px into the 80px cursor mark and the screenshot showed orange outside/white inside. A nonzero dot offset after movement settled to exactly 0px/0px. Proof: ignored `previews/cursor-button-contrast.png`.
+- Popover checks passed: React detail/icon/glow at desktop; React Native’s personal-project description at 390px; React Testing Library’s long label at 320px (popover x=16…289 within a 305px client viewport; no document overflow). Hovering/clicking inside the tooltip kept it open, outside click and Escape dismissed it, and keyboard Tab from React Native opened Flutter’s detail. Proof: ignored `previews/skill-details.png`.
+- With per-site reduced motion: 29 skill buttons remained usable, the tooltip had no animation and the custom cursor was hidden. Motion and normal viewport sizing were restored. Physical touch hardware and OS reduced-motion emulation remain outside the tested matrix.
+- Rendered axe-core scan with a skill detail open: zero violations, 40 passing rules; existing gradient contrast remains a manual-review item. Temporary audit HTML/JS were removed before final lint and handoff.
+- Production build, TypeScript, lint, 11 unit tests and the PostgreSQL/HTTP integration suite passed. Added focused checks for frame-rate-independent dot easing, button-edge clipping coordinates, viewport placement and icon/context coverage. No admin, database, hosting or deployment changes.

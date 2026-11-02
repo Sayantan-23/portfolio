@@ -256,13 +256,28 @@
   color: var(--action);
   contain: layout style;
 }
+.cursor-mark {
+  position: absolute;
+  left: -40px;
+  top: -40px;
+  width: 80px;
+  height: 80px;
+  pointer-events: none;
+}
+.cursor-contrast {
+  color: var(--screen-text);
+  clip-path: url(#cursor-button-clip);
+}
+.cursor-center {
+  transform: translate(var(--dot-x, 0px), var(--dot-y, 0px));
+}
 .precision-cursor.is-visible {
   opacity: 1;
 }
-.precision-cursor > svg {
+.cursor-mark > svg {
   position: absolute;
-  left: -18px;
-  top: -18px;
+  left: 22px;
+  top: 22px;
   width: 36px;
   height: 36px;
   fill: none;
@@ -277,21 +292,21 @@
 }
 .cursor-center {
   position: absolute;
-  left: -1.5px;
-  top: -1.5px;
+  left: 38.5px;
+  top: 38.5px;
   width: 3px;
   height: 3px;
   background: currentColor;
   border-radius: 50%;
 }
-.precision-cursor.is-interactive > svg {
+.precision-cursor.is-interactive .cursor-mark > svg {
   transform: rotate(45deg);
   width: 46px;
   height: 46px;
-  left: -23px;
-  top: -23px;
+  left: 17px;
+  top: 17px;
 }
-.precision-cursor.is-pressed > svg {
+.precision-cursor.is-pressed .cursor-mark > svg {
   transform: rotate(45deg) scale(0.75);
 }
 .precision-cursor.is-over-display {

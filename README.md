@@ -113,6 +113,8 @@ Deployment is intentionally deferred. A production host must support Next.js ser
 
 ## Personal content and skills
 
-Identity, experience and education live in `lib/profile.ts`. The complete resume-backed skills list lives in `lib/skills.ts`; `components/skills.tsx` renders the six-circuit workbench. Project content is still edited through the PostgreSQL-backed admin. Changing `scripts/seed.ts` does not overwrite existing admin records.
+Identity, experience and education live in `lib/profile.ts`. The skills list lives in `lib/skills.ts`, with individual icon/context descriptions in `lib/skill-details.ts`; `components/skills.tsx` renders the six-circuit workbench. Project content is still edited through the PostgreSQL-backed admin. Changing `scripts/seed.ts` does not overwrite existing admin records.
 
 The local review checked skill selection, keyboard input, motion-off behaviour, 320–1280px reflow, representative axe-core scans and an isolated database backup/restore. See Build Log for exact outcomes and limits; actual browser zoom, physical-device coverage and production checks remain open.
+
+Skill icons are local SVG assets in `public/icons` (Simple Icons 16.36.0 plus five locally drawn semantic icons; attribution and licence included). Popovers and cursor geometry use the existing React/CSS/motion setup with no new runtime dependency.

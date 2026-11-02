@@ -1,12 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { SkillPopover } from "./skill-popover";
+import { skillDetails } from "@/lib/skill-details";
 import { skillAreas } from "@/lib/skills";
 import { SectionLabel } from "./shell";
 
 export function Skills() {
   const [selected, select] = useState(0);
   const area = skillAreas[selected];
+  const [activeSkill, setActiveSkill] = useState<{
+    name: string;
+    area: string;
+    anchor: HTMLButtonElement;
+  } | null>(null);
+  const hoveringPopover = useRef(false);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const cancelClose = useCallback(() => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+  }, []);
+  const closePopover = useCallback(() => {
+    cancelClose();
+    hoveringPopover.current = false;
+    setActiveSkill(null);
+  }, [cancelClose]);
+  function showSkill(name: string, area: string, anchor: HTMLButtonElement) {
+    cancelClose();
+    hoveringPopover.current = false;
+    setActiveSkill({ name, area, anchor });
+  }
+  function leaveSkill() {
+    cancelClose();
+    if (activeSkill?.anchor === document.activeElement) return;
+    closeTimer.current = setTimeout(closePopover, 120);
+  }
+  useEffect(() => cancelClose, [cancelClose]);
   return (
     <section
       className="skills-section"
@@ -104,35 +132,82 @@ export function Skills() {
           aria-label="Explore skill areas"
         >
           {skillAreas.map((item, index) => (
-            <button
-              key={item.id}
-              type="button"
+            <article
               className="skill-route"
-              aria-pressed={selected === index}
-              onClick={() => select(index)}
-              data-cursor="TRACE"
+              data-selected={selected === index}
+              key={item.id}
             >
-              <span className="skill-route-number mono">0{index + 1}</span>
-              <span className="skill-route-content">
+              <button
+                type="button"
+                className="skill-route-select"
+                aria-pressed={selected === index}
+                onClick={() => select(index)}
+                data-cursor="TRACE"
+              >
+                <span className="skill-route-number mono">0{index + 1}</span>
                 <span className="skill-route-title">{item.title}</span>
-                <span className="skill-tools">
-                  {item.tools.map((tool) => (
-                    <span key={tool}>{tool}</span>
-                  ))}
+                <span className="skill-route-arrow" aria-hidden="true">
+                  ↗
                 </span>
-                {selected === index && (
-                  <span className="skill-route-detail" aria-live="polite">
-                    {item.description}
-                  </span>
-                )}
-              </span>
-              <span className="skill-route-arrow" aria-hidden="true">
-                ↗
-              </span>
-            </button>
+              </button>
+              <ul className="skill-tools" aria-label={`${item.title} tools`}>
+                {item.tools.map((tool) => (
+                  <li key={tool} onPointerLeave={leaveSkill}>
+                    <button
+                      type="button"
+                      className="skill-chip"
+                      aria-describedby={
+                        activeSkill?.name === tool ? "skill-popover" : undefined
+                      }
+                      onPointerEnter={(event) => {
+                        if (event.pointerType !== "touch")
+                          showSkill(tool, item.title, event.currentTarget);
+                      }}
+                      onFocus={(event) =>
+                        showSkill(tool, item.title, event.currentTarget)
+                      }
+                      onBlur={() => {
+                        if (!hoveringPopover.current) closePopover();
+                      }}
+                      onClick={(event) => {
+                        showSkill(tool, item.title, event.currentTarget);
+                      }}
+                      data-cursor="DETAILS"
+                    >
+                      <span
+                        className="skill-icon"
+                        style={{
+                          maskImage: `url(/icons/${skillDetails[tool].icon}.svg)`,
+                        }}
+                        aria-hidden="true"
+                      />
+                      {tool}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              {selected === index && (
+                <p className="skill-route-detail">{item.description}</p>
+              )}
+            </article>
           ))}
         </div>
       </div>
+      {activeSkill && (
+        <SkillPopover
+          key={activeSkill.name}
+          {...activeSkill}
+          onClose={closePopover}
+          onEnter={() => {
+            hoveringPopover.current = true;
+            cancelClose();
+          }}
+          onLeave={() => {
+            hoveringPopover.current = false;
+            leaveSkill();
+          }}
+        />
+      )}
     </section>
   );
 }
