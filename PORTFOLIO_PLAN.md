@@ -44,7 +44,7 @@ These are our proposed tokens, not colours copied or sampled from a reference si
 | Display text | `#F3F7FC` | Main text on the screen |
 | Display secondary | `#BDC0D4` | Screen labels and supporting copy |
 | Signal | `#77E0DA` | Diagram connections, selected node, brief signal animation |
-| Action | `#BA4524` | Primary button and restrained accent on the light panel |
+| Action | `#AD3E22` | Primary button and restrained accent on the light panel |
 
 Use neutral surfaces for most of the page. Keep cyan inside the display and burnt orange around the primary action and occasional identifier. Avoid distributing both accents through every label and border. The name should read predominantly in Ink; an orange surname is optional.
 
@@ -57,10 +57,10 @@ Use white text on the burnt-orange button. Keep small orange text on Casing rath
 | Display text / Display | 15.80:1 |
 | Display secondary / Display | 9.43:1 |
 | Signal / Display | 10.89:1 |
-| White / Action | 5.30:1 |
-| Action / Casing | 4.90:1 |
+| White / Action | 6.02:1 |
+| Action / Casing | 5.56:1 |
 
-These are token checks, not a full accessibility audit. Check rendered gradients, transparency, focus rings, and interactive boundaries during implementation. Edge is decorative, not a guaranteed accessible control boundary. Small Action-coloured text on Canvas does not meet the normal-text target with these values.
+These are token checks, not a full accessibility audit. Check rendered gradients, transparency, focus rings, and interactive boundaries during implementation. Edge is decorative, not a guaranteed accessible control boundary. Action on Canvas now measures 4.95:1 after the local accessibility review darkened the accent.
 
 Keep the display mostly flat with a restrained inner shadow. Grain or scanlines must sit behind content and remain barely visible. Do not lower text opacity to reproduce washed-out mockup labels.
 
@@ -96,7 +96,7 @@ Opening view:
 3. Right display: a personal engineering approach, such as the existing conceptual Interface → Logic → Data diagram. Identify it as an illustrative model, not a project’s actual architecture.
 4. A restrained invitation to continue. No project name or screenshot in the opening composition.
 
-Below the opening, let the page scroll naturally into About, capabilities, and Contact. About should add background rather than repeat the hero. Capabilities can group interface work, application/API logic, and data/persistence; verify final technologies and claims. No arbitrary percentage bars or invented expertise scores.
+Below the opening, let the page scroll naturally into About, Skills, Experience with compact Education, and Contact. About should add background rather than repeat the hero. Skills use six selectable circuits: interfaces, services, data, delivery, testing, and mobile/developer tools. All resume-backed tools stay visible; selection explains their purpose, with an inline explanation on mobile. No arbitrary percentage bars or invented expertise scores.
 
 The selected default is a separate Work page. Do not add a homepage project preview by default. A later requested preview must sit clearly below the personal introduction.
 
@@ -237,4 +237,8 @@ Open decisions: final introduction/About copy; exact capabilities; project scree
 
 ## Recruiter information and floating navigation refinement
 
-User-requested scope: add a resume-backed employment section and compact education record below the personal introduction, preserving the separate Work collection. Keep capabilities unchanged until its dedicated redesign. Use a light translucent floating header that contracts smoothly after scrolling; it must remain visible, accessible, and functional with reduced motion. Anchor targets must clear the header. Refine the display toward smoked indigo with a restrained lavender highlight and mint signal, keeping the light instrument casing. No new dependency or hosting choice is needed.
+User-requested scope: add a resume-backed employment section and compact education record below the personal introduction, preserving the separate Work collection. The user subsequently authorised the dedicated skills redesign; the six-circuit workbench now replaces the earlier three-column capabilities list. Use a light translucent floating header that contracts smoothly after scrolling; it must remain visible, accessible, and functional with reduced motion. Anchor targets must clear the header. Refine the display toward smoked indigo with a restrained lavender highlight and mint signal, keeping the light instrument casing. No new dependency or hosting choice is needed.
+
+## Skills and local quality refinement — 2 November 2026
+
+The skills workbench is implemented with a small client component and one resume-backed data source in `lib/skills.ts`. Use six connected circuits, a focused explanation, and a full visible tool list; do not add self-rated proficiency percentages. Mobile selection explains the area in its row so visitors do not need to scroll back to the diagram. The opening remains candidate-first. JobVault story paragraphs were checked against local implementation and decision records; images, demo availability and runtime feature verification remain separate from source inspection.

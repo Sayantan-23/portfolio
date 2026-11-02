@@ -6,6 +6,7 @@ import {
   Arrow,
   SectionLabel,
 } from "@/components/shell";
+import { Skills } from "@/components/skills";
 import { Approach } from "@/components/approach";
 import { profile } from "@/lib/profile";
 export default function Home() {
@@ -118,10 +119,10 @@ export default function Home() {
                 that bring them together.
               </p>
               <p>
-                I like working through a problem, understanding the tradeoffs,
-                and building something useful along the way. This is a
-                collection of personal projects and the things they’ve taught
-                me.
+                My professional work spans feature delivery, performance
+                improvements, and releases. Outside that work, I build personal
+                projects to explore problems of my own and keep learning. This
+                portfolio brings those two sides of my practice together.
               </p>
               <a
                 className="text-link"
@@ -145,42 +146,14 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="capabilities">
-            {[
-              [
-                "01",
-                "Interfaces",
-                "Thoughtful experiences, down to the interaction.",
-                "React / Next.js / TypeScript",
-              ],
-              [
-                "02",
-                "Application logic",
-                "The connections that make the whole thing work.",
-                "Node.js / Express / APIs",
-              ],
-              [
-                "03",
-                "Data & persistence",
-                "Structure that keeps important context together.",
-                "PostgreSQL / Data modelling",
-              ],
-            ].map(([number, title, description, tools]) => (
-              <article key={number}>
-                <span className="mono micro">{number} / AREA OF PRACTICE</span>
-                <h3>{title}</h3>
-                <p>{description}</p>
-                <span className="capability-tools">{tools}</span>
-              </article>
-            ))}
-          </div>
         </section>
+        <Skills />
         <section
           className="experience-section"
           id="experience"
           aria-labelledby="experience-title"
         >
-          <SectionLabel number="02">EXPERIENCE / THE PRACTICE</SectionLabel>
+          <SectionLabel number="03">EXPERIENCE / THE PRACTICE</SectionLabel>
           <div className="experience-intro">
             <h2 id="experience-title">
               Built in practice.
@@ -247,7 +220,7 @@ export default function Home() {
           </div>
         </section>
         <section className="contact-section" id="contact">
-          <SectionLabel number="03">KEEP THE CONVERSATION GOING</SectionLabel>
+          <SectionLabel number="04">KEEP THE CONVERSATION GOING</SectionLabel>
           <div>
             <h2>
               Have something

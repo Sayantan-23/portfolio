@@ -110,3 +110,9 @@ The dump contains project content, including drafts. `backups/` is ignored. No a
 - `mockups/` and `sample.html`: preserved design studies; they are not the Next.js app.
 
 Deployment is intentionally deferred. A production host must support Next.js server execution and reach PostgreSQL; a static HTML-only host cannot run this admin.
+
+## Personal content and skills
+
+Identity, experience and education live in `lib/profile.ts`. The complete resume-backed skills list lives in `lib/skills.ts`; `components/skills.tsx` renders the six-circuit workbench. Project content is still edited through the PostgreSQL-backed admin. Changing `scripts/seed.ts` does not overwrite existing admin records.
+
+The local review checked skill selection, keyboard input, motion-off behaviour, 320–1280px reflow, representative axe-core scans and an isolated database backup/restore. See Build Log for exact outcomes and limits; actual browser zoom, physical-device coverage and production checks remain open.

@@ -88,7 +88,7 @@ export function PublicEffects() {
           if (!entry.isIntersecting) return;
           const element = entry.target as HTMLElement;
           element.dataset.reveal = "done";
-          enter(element, Number(element.dataset.revealDelay || 0), 32, 900);
+          enter(element, 0, 32, 900);
           observer.unobserve(element);
         });
       },
@@ -96,13 +96,10 @@ export function PublicEffects() {
     );
     scope
       .querySelectorAll<HTMLElement>(
-        ".about-section .section-label, .about-grid > *, .capabilities article, .experience-section .section-label, .experience-intro, .experience-record, .education-strip, .contact-section .section-label, .contact-section h2, .contact-link, .project-row, .story-sections > section, .project-image",
+        ".about-section .section-label, .about-grid > *, .skills-section .section-label, .skills-heading, .skills-workbench, .experience-section .section-label, .experience-intro, .experience-record, .education-strip, .contact-section .section-label, .contact-section h2, .contact-link, .project-row, .story-sections > section, .project-image",
       )
-      .forEach((element, index) => {
+      .forEach((element) => {
         revealNodes.push(element);
-        element.dataset.revealDelay = String(
-          element.closest(".capabilities") ? (index % 3) * 100 : 0,
-        );
         if (element.getBoundingClientRect().top > window.innerHeight - 30)
           element.dataset.reveal = "pending";
         observer.observe(element);
@@ -199,7 +196,7 @@ export function PublicEffects() {
       node.classList.toggle("is-interactive", !!interactive);
       node.classList.toggle(
         "is-over-display",
-        !!target?.closest(".bench-screen"),
+        !!target?.closest(".bench-screen, .skills-instrument"),
       );
       node.classList.toggle("on-right", x > window.innerWidth - 160);
       if (caption.current) caption.current.textContent = label;
@@ -250,7 +247,6 @@ export function PublicEffects() {
       animations.forEach((animation) => animation.cancel());
       revealNodes.forEach((element) => {
         delete element.dataset.reveal;
-        delete element.dataset.revealDelay;
       });
       root.classList.remove("public-motion", "precision-cursor-active");
       root.style.removeProperty("--page-progress");

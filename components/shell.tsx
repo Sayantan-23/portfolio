@@ -31,6 +31,7 @@ export function Header({ active }: { active?: "work" }) {
         </Link>
         {/* eslint-disable @next/next/no-html-link-for-pages -- Native hash anchors preserve repeated section navigation with motion off. */}
         <a href="/#about">About</a>
+        <a href="/#skills">Skills</a>
         <a href="/#experience">Experience</a>
         <a href="/#contact">
           Contact <Arrow />

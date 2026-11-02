@@ -23,6 +23,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function ProjectPage({ params }: Props) {
   const project = await getProject((await params).projectId);
   if (!project) notFound();
+  const sections = Object.entries(storyLabels).filter(
+    ([key]) => project[key as keyof typeof storyLabels],
+  );
   return (
     <div className="site-wrap">
       <Header active="work" />
@@ -84,20 +87,29 @@ export default async function ProjectPage({ params }: Props) {
               />
             </figure>
           )}
-          <div className="story-sections">
-            {Object.entries(storyLabels)
-              .filter(([key]) => project[key as keyof typeof storyLabels])
-              .map(([key, label], index) => (
-                <section key={key}>
-                  <span className="mono micro">
-                    {String(index + 1).padStart(2, "0")} / {label.toUpperCase()}
-                  </span>
-                  <div>
-                    <h2>{label}</h2>
-                    <p>{project[key as keyof typeof storyLabels]}</p>
-                  </div>
-                </section>
+          {sections.length > 0 && (
+            <nav className="story-index" aria-label="Project story sections">
+              <span className="mono micro">IN THIS STORY</span>
+              {sections.map(([key, label]) => (
+                <a key={key} href={`#story-${key}`}>
+                  {label}
+                  <span aria-hidden="true"> ↓</span>
+                </a>
               ))}
+            </nav>
+          )}
+          <div className="story-sections">
+            {sections.map(([key, label], index) => (
+              <section key={key} id={`story-${key}`}>
+                <span className="mono micro">
+                  {String(index + 1).padStart(2, "0")} / {label.toUpperCase()}
+                </span>
+                <div>
+                  <h2>{label}</h2>
+                  <p>{project[key as keyof typeof storyLabels]}</p>
+                </div>
+              </section>
+            ))}
           </div>
           <div className="bench-bottomline">
             <span>AN EXPLORATION, FROM THE INSIDE OUT.</span>

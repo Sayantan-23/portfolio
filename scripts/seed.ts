@@ -13,10 +13,10 @@ export const seedProject: ProjectContent = {
   problem:
     "Job postings expire, application notes become scattered, and the original context can be difficult to find when it is needed again.",
   contribution:
-    "A personal project exploring a connected workspace for saving job descriptions and organising applications, notes, and follow-ups.",
+    "A self-hosted workspace for an individual job search: save a posting snapshot, track application stages, and keep notes, contacts, and reminders with the job. Reusable profiles and personas provide context for assisted resume and cover-letter generation.",
   implementation:
-    "The repository documents a web interface, an API, PostgreSQL persistence, and extension and mobile clients. These are connected surfaces of one project.",
+    "A Next.js web client connects to an Express API and PostgreSQL through Drizzle. The API handles saved posting snapshots, application workflows, reminders, and structured document generation. A Chrome extension and an Expo mobile client connect to the same application.",
   decisions:
-    "One documented decision is to keep structured content as data and generate previews and documents in code, rather than storing generated files.",
+    "Keep resume content as structured data and derive previews, exports, and client-side PDFs in code. This avoids a backend rendering toolchain and a separate generated-file lifecycle. The tradeoff is that browser PDF rendering needs its own verification, and generated files are not retained as a source-file audit trail.",
   lessons: "",
 };

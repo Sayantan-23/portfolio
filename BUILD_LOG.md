@@ -7,7 +7,7 @@ Lightweight tracking for Sayantan’s Signal Bench portfolio. Created 1 November
 - Phase: first local implementation built; content review and release work remain.
 - Application: Next.js 16.4.3 / React 19.3.1 / TypeScript 6.0.3, developed on Node 24.19.0. Historical HTML studies are preserved.
 - Selected direction: Signal Bench. The richer motion layer, floating navigation, and recruiter-information refinement are implemented; the design specification is in [the portfolio plan](PORTFOLIO_PLAN.md).
-- Next work: review the updated display, floating navigation and resume-backed background; redesign skills separately (T17), finalise public copy (T05), finish broader device/accessibility checks (T12), then choose hosting (T13).
+- Next work: manual review of skills, personal copy and project story; select approved resume, project visuals and learning entries (T05), finish physical-device/zoom/performance checks (T03/T12), then choose hosting (T13).
 - PostgreSQL is selected. Hosting and image hosting remain undecided; local development is authorised.
 
 ## Tracking rules
@@ -21,7 +21,7 @@ Update this file for meaningful task progress, decisions, and session handoff. A
 | ID  | Milestone                          | Status      | Tasks   |
 | --- | ---------------------------------- | ----------- | ------- |
 | M01 | Foundation | done | T01 |
-| M02 | Public portfolio                   | in progress | T02–T05 |
+| M02 | Public portfolio                   | in progress | T02–T05, T16–T17 |
 | M03 | Project storage and admin | done | T06–T09 |
 | M04 | Motion and polish | done | T10–T11, T14–T15 |
 | M05 | Validation and release preparation | in progress | T12–T13 |
@@ -49,7 +49,7 @@ Statuses below record current implementation progress. Research and mockups pred
 | T14 | M04 | Build the user-approved technical motion, eased desktop scrolling, scroll reveals, and contextual crosshair cursor; verify public routes and reduced-motion/touch/admin fallbacks. | done |
 | T15 | M04 | Refine the approach display palette and add a smoothly compacting sticky public header; desktop/mobile, anchors, keyboard and motion-off checks passed. | done |
 | T16 | M02 | Add resume-backed professional experience and compact education; verified against the supplied resume and inspected at desktop/mobile widths. | done |
-| T17 | M02 | Redesign capabilities creatively and cover the full verified skill set in a later user-approved pass. | planned |
+| T17 | M02 | Build the six-circuit skills workbench with all 28 resume-backed tools; six-selection assertions, mobile inline feedback and keyboard/motion-off checks passed. | done |
 
 ## Decision record
 
@@ -147,3 +147,23 @@ The visual layer is ready for user review. Final copy, resume, project visuals, 
 - Typecheck, ESLint, seven unit tests, final production build, and the PostgreSQL/HTTP integration suite passed. The integration fixture cleanup preserved existing project data. An explicit comparison confirmed the capabilities markup and CSS are unchanged from the baseline commit.
 - No dependency, database schema, hosted service or deployment change. Production preview remains at http://127.0.0.1:3000. Broader physical-device/OS reduced-motion/accessibility checks and final content approval remain open. T17 is planned only, at the user’s request.
 - Git: baseline snapshot was pushed to `origin/master` before editing. This refinement is a separate commit on the same branch.
+
+## Skills, content and local release review — 2 November 2026
+
+- Scope: complete the creative skills workbench, refine personal copy and the existing project presentation, inspect source evidence, and complete available local quality checks. Hosting/publication and an approved public resume remain dependent on user choices; do not invent screenshots, demo availability, learning projects or claims.
+- Reach: home/capabilities component, profile data, shared navigation and motion selectors, CSS, project source/content only if verified, relevant checks and handoff. Preserve the existing admin/database state.
+- T03/T05/T12 continue in progress. T17 is now authorised and in progress.
+
+### Completed for manual review — 2 November 2026
+
+- T17 done: six selectable skill circuits, a responsive SVG circuit display and purpose-focused explanations. All 28 tools from the supplied resume remain visible; no invented proficiency scores or extra technologies. Mobile displays the selected explanation inline. Small-screen navigation keeps Work, Skills, Experience and Contact accessible, including the 320px layout.
+- About copy now connects professional experience and personal work. JobVault’s three original seed story paragraphs were refined using its local README, jobs/reminders/resumes services and the document-generation decision. A guarded one-time update changed only those untouched fields, preserved all other data/publication/IDs, and backed up the original row in ignored `backups/job-vault-before-content-review.json`. The seed remains non-overwriting. New story-section anchors are generated only for populated sections.
+- Source review is not a running-app feature test. No invented screenshot, adoption claim, live demo, new project, professional case study or unreviewed downloadable resume was introduced. T05 stays in progress for user review and asset selection.
+- Browser assertions passed for all six skill selections: exactly one selected area, matching explanation, and 28 tools retained. At 390px, selecting the last row displayed its explanation beside the selected tools. At 320/640/768/1280px, the document had no horizontal overflow and header navigation fitted. Desktop screenshot: ignored `previews/skills-workbench.png`.
+- Keyboard Tab reached Services with a 3px focus outline and Space selected it. With per-site motion off, selection worked, hidden reveal count was zero, Lenis was absent, header transition was 0s, and the selected route had no CSS animation. Motion was restored to on. Physical coarse-pointer devices and actual OS reduced-motion emulation remain untested.
+- Rendered axe-core checks (WCAG 2 A/AA, 2.1 AA and best practices) on Home, Work, JobVault and Login found the earlier orange/grey text contrast failure. Darkened the shared action token to #AD3E22. Recheck: zero reported violations on all four routes (37/34/34/37 passing rules). Gradient contrast remains flagged for manual review; conservative primary token checks passed: Action/Canvas 4.95:1, white/Action 6.02:1, muted/casing’s darker endpoint 5.38:1, display secondary/brightest skills gradient 6.35:1. This is not a claim of complete WCAG conformance. Full reports are in ignored `previews/accessibility-review.json`.
+- Reflow was checked at 640px; the in-app browser did not apply keyboard zoom shortcuts, so actual 200% browser zoom is still open. Local gzip size of scripts referenced by the rendered page: Home 188.6 KiB; story 190.6 KiB. These are payload measurements, not Lighthouse or real-device performance scores. A broader performance audit remains open.
+- Local PostgreSQL backup/restore verified: a custom-format dump restored into a new isolated database and the complete project-record digest matched the source; only that temporary database was dropped. Dump retained privately in ignored `backups/portfolio-review-20261102-JFTP6I.dump`. Production backup configuration still depends on hosting.
+- Typecheck, lint, seven unit tests, production build and PostgreSQL/HTTP admin integration passed. No runtime dependency, schema or hosting changes. Temporary accessibility HTML/axe files are removed before handoff.
+
+Manual review order: skills on desktop/mobile; personal facts and copy; JobVault story wording. Remaining choices: approved public resume, real project screenshots/demo, older learning entries, application/PostgreSQL hosting. T03/T05/T12 stay in progress for the explicit limits above; T13 remains planned.

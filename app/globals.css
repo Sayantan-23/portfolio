@@ -8,7 +8,7 @@
   --screen-text: #f3f7fc;
   --screen-secondary: #bdc0d4;
   --signal: #77e0da;
-  --action: #ba4524;
+  --action: #ad3e22;
   --mono: "IBM Plex Mono", monospace;
   --sans: "Manrope Variable", Arial, sans-serif;
 }
@@ -918,39 +918,7 @@ img {
   display: block;
   font-size: 11px;
 }
-.capabilities {
-  margin-top: 65px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  border-top: 1px solid #b8c0cb;
-}
-.capabilities article {
-  padding: 27px 30px 0 0;
-}
-.capabilities article + article {
-  padding-left: 30px;
-  border-left: 1px solid #c5cbd3;
-}
-.capabilities article > .micro {
-  font-size: 9px;
-  color: var(--muted);
-}
-.capabilities h3 {
-  font-size: 22px;
-  letter-spacing: -0.5px;
-  margin: 22px 0 12px;
-}
-.capabilities p {
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.9;
-  max-width: 265px;
-  margin-bottom: 25px;
-}
-.capability-tools {
-  font: 10px/1.9 var(--mono);
-  color: var(--muted);
-}
+
 .contact-section {
   border-top: 1px solid #b8c0cb;
   padding: 40px 10px 55px;
@@ -1730,23 +1698,7 @@ img {
   .about-copy p {
     font-size: 14px;
   }
-  .capabilities {
-    grid-template-columns: 1fr;
-    margin-top: 35px;
-  }
-  .capabilities article,
-  .capabilities article + article {
-    padding: 25px 0;
-    border-left: 0;
-    border-bottom: 1px solid #c5cbd3;
-  }
-  .capabilities h3 {
-    margin-top: 14px;
-  }
-  .capabilities p {
-    max-width: none;
-    margin-bottom: 15px;
-  }
+
   .contact-section {
     padding: 30px 5px 40px;
   }
@@ -2030,5 +1982,37 @@ img {
   }
   .bench-bottomline {
     font-size: 7px;
+  }
+}
+
+.story-index {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 26px;
+  padding: 24px 0;
+  border-top: 1px solid var(--edge);
+}
+.story-index > span {
+  color: var(--muted);
+  margin-right: auto;
+}
+.story-index a {
+  font-size: 12px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.story-index a:hover {
+  color: var(--action);
+}
+@media (max-width: 760px) {
+  .story-index {
+    gap: 4px 20px;
+  }
+  .story-index > span {
+    flex-basis: 100%;
+    margin-bottom: 10px;
   }
 }

@@ -4,6 +4,7 @@ import "@fontsource/ibm-plex-mono/400.css";
 import "@fontsource/ibm-plex-mono/500.css";
 import "lenis/dist/lenis.css";
 import "./globals.css";
+import "./skills.css";
 import "./motion.css";
 import { PublicEffects } from "@/components/public-effects";
 export const metadata: Metadata = {
